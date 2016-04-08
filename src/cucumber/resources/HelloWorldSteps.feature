@@ -1,6 +1,6 @@
+Feature: Hello World
 
-  Feature: Hello World
   Scenario: A world says hello
-  Given A world
-  When somebody says hello
-  Then hello must be said back
+    Given the system knows my name is "Domenique Tilleuil"
+    When I say hi to the system
+    Then the system responds with "Hello, Domenique Tilleuil"
