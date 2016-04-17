@@ -1,15 +1,14 @@
 package be.jpendel;
 
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
-
 public class JPendelTests {
 
-	@Test
-	public void canRunTests() {
-		assertThat(true, is(true));
-
-	}
+    @Test
+    public void canRunTests() {
+        assertThat(true, is(true));
+    }
 }
