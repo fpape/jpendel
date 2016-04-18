@@ -9,3 +9,14 @@ Feature: Create an event
       |  Pukkelpop       |
       |  Werchter        |
       |  schaaktoernooi  |
+
+
+  Scenario: Create multiple events
+    When Events are created with following names
+      |  Pukkelpop        |
+      |  Werchter         |
+      |  schaaktoernooi   |
+    Then Below events are listed in the event overview
+      |  Pukkelpop        |
+      |  Werchter         |
+      |  schaaktoernooi   |
