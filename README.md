@@ -1,5 +1,5 @@
 # jpendel
 
-[![build status](https://travis-ci.org/MarkDechamps/jpendel.svg?branch=master)]
+[![build status](https://travis-ci.org/MarkDechamps/jpendel.svg?branch=master)](https://travis-ci.org/MarkDechamps/jpendel)
 
 A Sample application to explore BDD, TDD and other XP methodologies.
