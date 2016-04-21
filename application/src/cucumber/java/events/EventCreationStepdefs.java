@@ -4,6 +4,9 @@ import be.jpendel.application.CreateEventCommand;
 import be.jpendel.application.Event;
 import be.jpendel.application.EventApplicationService;
 import cucumber.api.Format;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -47,10 +50,10 @@ public class EventCreationStepdefs {
     }
 
     @Then("^The event with name \"([^\"]*)\" is listed (\\d+) times in the event overview$")
-    public void the_event_with_name_is_listed_times_in_the_event_overview(String eventName, int eventOccurrences) throws Throwable {
+    public void the_event_with_name_is_listed_times_in_the_event_overview(String eventName, long eventOccurrences) throws Throwable {
         Collection<Event> overview = eventApplicationService.overview();
-        assertThat(overview, hasSize(eventOccurrences));
-        assertThat(getFirstEvent(overview).getName(), is(equalTo(eventName)));
+
+        assertThat(overview.stream().filter(e->e.getName().equals(eventName)).count(), is(eventOccurrences));
     }
 
     @When("^Events are created with following names$")
@@ -64,8 +67,8 @@ public class EventCreationStepdefs {
     @Then("^Below events are listed in the event overview$")
     public void belowEventsAreListedInTheEventOverview(List<String> eventNames) throws Throwable {
         Collection<Event> overview = eventApplicationService.overview();
-        assertThat(overview, hasSize(3));
 
+        assertThat(overview, hasSize(3));
         assertThat(overview.stream().map(Event::getName).collect(toList()), containsInAnyOrder(eventNames.toArray()));
     }
 
@@ -84,4 +87,20 @@ public class EventCreationStepdefs {
                 .withStartDateTime(LocalDateTime.now())
                 .build();
     }
+
+    @And("^the event details match \"([^\"]*)\", \"([^\"]*)\"$")
+    public void theEventDetailsMatch(@Format("dd-MM-yyyy") Date date, String location) throws Throwable {
+        Collection<Event> overview = eventApplicationService.overview();
+
+        assertThat(getFirstEvent(overview).getStartDateTime(), is(equalTo(map(date))));
+        assertThat(getFirstEvent(overview).getLocation(), is(equalTo(location)));
+    }
+
+    @Given("^An event exists with name \"([^\"]*)\"$")
+    public void anEventExistsWithName(String eventName) throws Throwable {
+        final CreateEventCommand command = createEventCommand(eventName);
+        eventApplicationService.create(command);
+    }
+
+
 }
