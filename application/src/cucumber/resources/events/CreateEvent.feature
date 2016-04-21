@@ -11,16 +11,16 @@ Feature: Create an event
       | Guido Barbecue | 10-8-2016  | Lokeren        |
       | schaaktoernooi | 10-12-2016 | Brugge         |
 
-#  Scenario Outline: Create double an event
-#    Given An event exists with name "<First event name>"
-#    When An event is created with name "<Second event name>"
-#    Then The event with name "<Event name>" is listed 2 times in the event overview
-#    Examples:
-#      | First event name | Event name     |
-#      | Pukkelpop        | Pukkelpop      |
-#      | Rock Werchter    | Rock Werchter  |
-#      | Guido Barbecue   | Guido Barbecue |
-#      | schaaktoernooi   | schaaktoernooi |
+  Scenario Outline: Create double an event
+    Given An event was created with name "<First event name>"
+    When An event is created with name "<Second event name>"
+    Then The event with name "<Event name>" is listed 2 times in the event overview
+    Examples:
+      | First event name | Event name     |
+      | Pukkelpop        | Pukkelpop      |
+      | Rock Werchter    | Rock Werchter  |
+      | Guido Barbecue   | Guido Barbecue |
+      | schaaktoernooi   | schaaktoernooi |
 
 
   Scenario: Create multiple events

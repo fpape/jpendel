@@ -24,13 +24,13 @@ public class EventCreationStepdefs {
 
     private EventApplicationService eventApplicationService = new EventApplicationService();
 
-    @When("^An event is created with name \"([^\"]*)\"$")
+    @When("^An event (?:is|was) created with name \"([^\"]*)\"$")
     public void anEventIsCreatedWithName(String eventName) throws Throwable {
         final CreateEventCommand createEventCommand = createEventCommand(eventName);
         eventApplicationService.create(createEventCommand);
     }
 
-    @When("^An event is created with name \"([^\"]*)\" for date \"([^\"]*)\" in location \"([^\"]*)\"$")
+    @When("^An event (?:is|was) created with name \"([^\"]*)\" for date \"([^\"]*)\" in location \"([^\"]*)\"$")
     public void an_event_is_created_with_name_for_date_in_location(String eventName, @Format("dd-MM-yyyy") Date date, String location) throws Throwable {
         final CreateEventCommand command = CreateEventCommand.builder()
                 .withName(eventName)
@@ -43,8 +43,13 @@ public class EventCreationStepdefs {
 
     @Then("^The event with name \"([^\"]*)\" is listed in the event overview$")
     public void theEventWithNameIsListedInTheEventOverview(String eventName) throws Throwable {
+        the_event_with_name_is_listed_times_in_the_event_overview(eventName, 1);
+    }
+
+    @Then("^The event with name \"([^\"]*)\" is listed (\\d+) times in the event overview$")
+    public void the_event_with_name_is_listed_times_in_the_event_overview(String eventName, int eventOccurrences) throws Throwable {
         Collection<Event> overview = eventApplicationService.overview();
-        assertThat(overview, hasSize(1));
+        assertThat(overview, hasSize(eventOccurrences));
         assertThat(getFirstEvent(overview).getName(), is(equalTo(eventName)));
     }
 
