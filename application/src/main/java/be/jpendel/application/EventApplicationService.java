@@ -9,7 +9,7 @@ public class EventApplicationService {
     private Collection<Event> events = new ArrayList<>();
 
     public void create(CreateEventCommand createEventCommand) {
-        this.events.add(new Event(createEventCommand.getName()));
+        this.events.add(new Event(createEventCommand.getName(), createEventCommand.getStartDateTime(), createEventCommand.getLocation()));
     }
 
     public Collection<Event> overview() {
