@@ -3,12 +3,14 @@ package events;
 import be.jpendel.application.CreateEventCommand;
 import be.jpendel.application.Event;
 import be.jpendel.application.EventApplicationService;
+import cucumber.api.Format;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.hamcrest.Matchers;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -24,8 +26,19 @@ public class EventCreationStepdefs {
 
     @When("^An event is created with name \"([^\"]*)\"$")
     public void anEventIsCreatedWithName(String eventName) throws Throwable {
-        CreateEventCommand createEventCommand = createEventCommand(eventName);
+        final CreateEventCommand createEventCommand = createEventCommand(eventName);
         eventApplicationService.create(createEventCommand);
+    }
+
+    @When("^An event is created with name \"([^\"]*)\" for date \"([^\"]*)\" in location \"([^\"]*)\"$")
+    public void an_event_is_created_with_name_for_date_in_location(String eventName, @Format("dd-MM-yyyy") Date date, String location) throws Throwable {
+        final CreateEventCommand command = CreateEventCommand.builder()
+                .withName(eventName)
+                .withLocation(location)
+                .withStartDateTime(map(date))
+                .build();
+        eventApplicationService.create(command);
+
     }
 
     @Then("^The event with name \"([^\"]*)\" is listed in the event overview$")
@@ -33,10 +46,6 @@ public class EventCreationStepdefs {
         Collection<Event> overview = eventApplicationService.overview();
         assertThat(overview, hasSize(1));
         assertThat(getFirstEvent(overview).getName(), is(equalTo(eventName)));
-    }
-
-    private Event getFirstEvent(Collection<Event> overview) {
-        return overview.stream().findFirst().get();
     }
 
     @When("^Events are created with following names$")
@@ -53,6 +62,14 @@ public class EventCreationStepdefs {
         assertThat(overview, hasSize(3));
 
         assertThat(overview.stream().map(Event::getName).collect(toList()), containsInAnyOrder(eventNames.toArray()));
+    }
+
+    private LocalDateTime map(@Format("dd-MM-yyyy") Date date) {
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
+    private Event getFirstEvent(Collection<Event> overview) {
+        return overview.stream().findFirst().get();
     }
 
     private CreateEventCommand createEventCommand(String eventName) {
