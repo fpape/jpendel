@@ -34,3 +34,4 @@ Feature: Create an event
       | Pukkelpop      |
       | Werchter       |
       | schaaktoernooi |
+
