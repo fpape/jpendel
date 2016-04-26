@@ -1,12 +1,32 @@
 Feature: Create a person
 
   Scenario: Create a person
-    When A person is created
+    When a person is created
       | FirstName | LastName | BirthDate  | Phone     |
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
-    Then The person is listed in the person overview
+    Then the person is listed in the person overview
       | FirstName | LastName | BirthDate  | Phone     |
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
 
+  Scenario: Create same person twice
+    When the persons are created
+      | FirstName | LastName | BirthDate  | Phone     |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
+    Then the persons are listed in the person overview
+      | FirstName | LastName | BirthDate  | Phone     |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
 
+  Scenario: Create multiple persons
+    When the persons are created
+      | FirstName | LastName | BirthDate  | Phone     |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
+      | Mark      | Dechamps | 01-01-1985 | 059279078 |
+      | Pietje    | Puk      | 01-01-1965 | 059279078 |
+    Then the persons are listed in the person overview
+      | FirstName | LastName | BirthDate  | Phone     |
+      | Guido     | Dechamps | 01-01-1995 | 059279078 |
+      | Mark      | Dechamps | 01-01-1985 | 059279078 |
+      | Pietje    | Puk      | 01-01-1965 | 059279078 |
 
