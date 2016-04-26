@@ -1,4 +1,4 @@
-package be.jpendel.application;
+package be.jpendel.domain.event;
 
 import java.time.LocalDateTime;
 

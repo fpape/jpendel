@@ -1,8 +1,8 @@
 package be.jpendel.cucumber.members;
 
-import be.jpendel.member.SignupUC;
-import be.jpendel.member.member.Member;
-import be.jpendel.member.repository.MemberRepository;
+import be.jpendel.domain.member.SignupUC;
+import be.jpendel.domain.member.Member;
+import be.jpendel.domain.member.MemberRepository;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

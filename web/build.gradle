@@ -18,18 +18,11 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
-repositories {
-    mavenCentral()
-}
-
-
 dependencies {
     compile project(':application')
 
+    compile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
 }

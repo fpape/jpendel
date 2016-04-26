@@ -1,4 +1,4 @@
-package be.jpendel.member.member;
+package be.jpendel.domain.member;
 
 public class Member {
     private String name;
