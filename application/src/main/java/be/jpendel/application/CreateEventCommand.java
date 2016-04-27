@@ -16,9 +16,6 @@ public class CreateEventCommand {
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
 
-  private CreateEventCommand() {
-  }
-
   private CreateEventCommand(Builder builder) {
     this.name = builder.name;
     this.description = builder.description;

@@ -4,5 +4,6 @@ subprojects {
     version = '2.2'
     repositories {
         mavenCentral()
+        maven { url 'http://dl.bintray.com/sbuettner/maven' }
     }
 }

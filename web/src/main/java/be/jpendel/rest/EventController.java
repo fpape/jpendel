@@ -23,7 +23,7 @@ public class EventController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/event")
-    public void create(@RequestBody CreateEventCommand createEventCommand) {
-        eventApplicationService.create(createEventCommand);
+    public void create(@RequestBody CreateEventCommand.Builder createEventCommandBuilder) {
+        eventApplicationService.create(createEventCommandBuilder.build());
     }
 }

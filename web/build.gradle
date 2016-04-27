@@ -4,6 +4,7 @@ buildscript {
     }
     repositories {
         mavenCentral()
+
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -21,6 +22,14 @@ jar {
 dependencies {
     compile project(':application')
 
+    // web shizzle
+    compile('de.infinit:spring-boot-autoconfigure-wro4j:0.0.6')
+    compile('org.webjars:jquery:2.2.3')
+    compile('org.webjars:angularjs:1.5.3')
+    compile('org.webjars:bootstrap:3.3.6')
+    
+    // java dependencies
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1')
     compile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
