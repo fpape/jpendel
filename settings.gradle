@@ -1,1 +1,2 @@
-include 'application', 'web'
+include 'application', 'persistence', 'web'
+

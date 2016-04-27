@@ -2,7 +2,6 @@ Feature: Create an event
 
   Scenario Outline: Create an event
     When An event is created with name "<name>" for date "<startDateTime>" in location "<location>"
-
     Then The event with name "<name>" is listed in the event overview
     And the event details match "<startDateTime>", "<location>"
 

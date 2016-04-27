@@ -8,13 +8,13 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class CreateEventCommand {
-  private final String name;
-  private final String description;
-  private final String location;
-  private final int distance;
-  private final Period expectedDuration;
-  private final LocalDateTime startDateTime;
-  private final LocalDateTime endDateTime;
+  private String name;
+  private String description;
+  private String location;
+  private int distance;
+  private Period expectedDuration;
+  private LocalDateTime startDateTime;
+  private LocalDateTime endDateTime;
 
   private CreateEventCommand(Builder builder) {
     this.name = builder.name;
@@ -58,7 +58,7 @@ public class CreateEventCommand {
     return new Builder();
   }
 
-  public static final class Builder {
+  public static class Builder {
     private String description;
     private String name;
     private String location;

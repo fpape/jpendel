@@ -1,6 +1,6 @@
-package be.jpendel.member.repository;
+package be.jpendel.domain.member;
 
-import be.jpendel.member.member.Member;
+import be.jpendel.domain.member.Member;
 
 import java.util.Optional;
 

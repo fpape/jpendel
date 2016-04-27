@@ -1,18 +1,24 @@
 package be.jpendel.application;
 
-import java.util.ArrayList;
+import be.jpendel.domain.event.Event;
+import be.jpendel.domain.event.EventRepository;
+
 import java.util.Collection;
 import java.util.Collections;
 
 public class EventApplicationService {
 
-    private Collection<Event> events = new ArrayList<>();
+    private EventRepository eventRepository;
+
+    public EventApplicationService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     public void create(CreateEventCommand createEventCommand) {
-        this.events.add(new Event(createEventCommand.getName(), createEventCommand.getStartDateTime(), createEventCommand.getLocation()));
+        eventRepository.save(new Event(createEventCommand.getName(), createEventCommand.getStartDateTime(), createEventCommand.getLocation()));
     }
 
     public Collection<Event> overview() {
-        return Collections.unmodifiableCollection(events);
+        return Collections.unmodifiableCollection(eventRepository.findAll());
     }
 }

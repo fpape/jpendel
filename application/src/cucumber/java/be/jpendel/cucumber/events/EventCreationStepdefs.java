@@ -1,8 +1,9 @@
-package be.jpendel.cucumber.members;
+package be.jpendel.cucumber.events;
 
 import be.jpendel.application.CreateEventCommand;
-import be.jpendel.application.Event;
 import be.jpendel.application.EventApplicationService;
+import be.jpendel.domain.event.Event;
+import be.jpendel.domain.event.EventRepository;
 import cucumber.api.Format;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -11,6 +12,7 @@ import cucumber.api.java.en.When;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,19 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 public class EventCreationStepdefs {
 
-  private EventApplicationService eventApplicationService = new EventApplicationService();
+  private EventApplicationService eventApplicationService = new EventApplicationService(new EventRepository() {
+    private List<Event> events = new ArrayList<>();
+
+    @Override
+    public void save(Event event) {
+      events.add(event);
+    }
+
+    @Override
+    public Collection<Event> findAll() {
+      return events;
+    }
+  });
 
   @When("^An event (?:is|was) created with name \"([^\"]*)\"$")
   public void anEventIsCreatedWithName(String eventName) throws Throwable {
