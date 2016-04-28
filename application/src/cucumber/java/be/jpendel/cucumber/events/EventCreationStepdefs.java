@@ -17,12 +17,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventCreationStepdefs {
 
@@ -65,7 +60,7 @@ public class EventCreationStepdefs {
   public void timesListedInOverview(String eventName, long eventOccurrences) throws Throwable {
     Collection<Event> overview = eventApplicationService.overview();
 
-    assertThat(countEventsWithName(eventName, overview), is(eventOccurrences));
+    assertThat(countEventsWithName(eventName, overview)).isEqualTo(eventOccurrences);
   }
 
   @When("^Events are created with following names$")
@@ -80,8 +75,8 @@ public class EventCreationStepdefs {
   public void belowEventsAreListedInTheEventOverview(List<String> eventNames) throws Throwable {
     Collection<Event> overview = eventApplicationService.overview();
 
-    assertThat(overview, hasSize(eventNames.size()));
-    assertThat(overview.stream().map(Event::getName).collect(toList()), containsInAnyOrder(eventNames.toArray()));
+    assertThat(overview).hasSize(eventNames.size());
+    assertThat(overview).extracting(Event::getName).containsAll(eventNames);
   }
 
   @And("^the event details match \"([^\"]*)\", \"([^\"]*)\"$")
@@ -100,8 +95,8 @@ public class EventCreationStepdefs {
   }
 
   private void assertEventDetails(Event event, Date date, String location) {
-    assertThat(event.getStartDateTime(), is(equalTo(map(date))));
-    assertThat(event.getLocation(), is(equalTo(location)));
+    assertThat(event.getStartDateTime()).isEqualTo(map(date));
+    assertThat(event.getLocation()).isEqualTo(location);
   }
 
   private CreateEventCommand createEvent(CreateEventCommand.Builder builder) {
