@@ -3,7 +3,7 @@ package be.jpendel.domain.event;
 import java.time.LocalDateTime;
 
 public class Event {
-    private final String name;
+    private String name;
     private LocalDateTime startDateTime;
     private String location;
 
