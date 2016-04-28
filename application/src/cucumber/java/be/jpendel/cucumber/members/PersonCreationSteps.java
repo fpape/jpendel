@@ -1,32 +1,55 @@
 package be.jpendel.cucumber.members;
 
-import cucumber.api.PendingException;
+import be.jpendel.application.CreatePersonCommand;
+import be.jpendel.application.PersonApplicationService;
+import be.jpendel.application.PersonDTO;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static java.time.ZoneId.systemDefault;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonCreationSteps {
-    //TODO kan dit ook  naar een enkele DTO ipv een lijst?
+
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final PersonApplicationService personApplicationService = new PersonApplicationService();
+
     @When("^(?:a|the) (?:person|persons) (?:is|are) created$")
-    public void a_person_is_created(List<PersonDTO> personDTOs) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-        // E,K,V must be a scalar (String, Integer, Date, enum etc)
-//        assertEquals(1, arg1.size());
-        throw new PendingException();
+    public void createPersons(List<PersonBean> personBeen) throws Throwable {
+        personBeen.stream()
+                .forEach(x -> personApplicationService.createPerson(map(x)));
+
     }
 
     @Then("^the (?:person|persons) (?:is|are) listed in the person overview$")
-    public void the_person_is_listed_in_the_person_overview(List<PersonDTO> personDTOs) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-        // E,K,V must be a scalar (String, Integer, Date, enum etc)
-        assertEquals(1, personDTOs.size());
-        throw new PendingException();
+    public void the_person_is_listed_in_the_person_overview(List<PersonBean> beanList) throws Throwable {
+        final List<PersonDTO> all = personApplicationService.getAll();
+        assertThat(all).hasSameSizeAs(beanList);
+    }
+
+    private CreatePersonCommand map(PersonBean personBean) {
+        return CreatePersonCommand.newBuilder()
+                .withFirstName(personBean.getFirstName())
+                .withLastName(personBean.getLastName())
+                .withBirthDate(toDate(personBean.getBirthDate()))
+                .withPhone(personBean.getPhone())
+                .build();
+    }
+
+    private LocalDate toDate(Date dateToConvert) {
+        final Instant instant = dateToConvert.toInstant();
+        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, systemDefault());
+        return localDateTime.toLocalDate();
+    }
+
+    private LocalDate toDate(String dateToConvert) {
+        return LocalDate.parse(dateToConvert, DATE_TIME_FORMATTER);
     }
 }

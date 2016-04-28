@@ -8,121 +8,94 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class CreateEventCommand {
-  private final String name;
-  private final String description;
-  private final String location;
-  private final int distance;
-  private final Period expectedDuration;
-  private final LocalDateTime startDateTime;
-  private final LocalDateTime endDateTime;
+    public final String name;
+    public final String description;
+    public final String location;
+    public final int distance;
+    public final Period expectedDuration;
+    public final LocalDateTime startDateTime;
+    public final LocalDateTime endDateTime;
 
-  private CreateEventCommand(Builder builder) {
-    this.name = builder.name;
-    this.description = builder.description;
-    this.location = builder.location;
-    this.distance = builder.distance;
-    this.expectedDuration = builder.expectedDuration;
-    this.startDateTime = builder.startDateTime;
-    this.endDateTime = builder.endDateTime;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public int getDistance() {
-    return distance;
-  }
-
-  public LocalDateTime getEndDateTime() {
-    return endDateTime;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public Period getExpectedDuration() {
-    return expectedDuration;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public LocalDateTime getStartDateTime() {
-    return startDateTime;
-  }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  public final static class Builder {
-    private String description;
-    private String name;
-    private String location;
-    private int distance;
-    private Period expectedDuration;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-
-    private Builder() {
+    private CreateEventCommand(Builder builder) {
+        this.name = builder.name;
+        this.description = builder.description;
+        this.location = builder.location;
+        this.distance = builder.distance;
+        this.expectedDuration = builder.expectedDuration;
+        this.startDateTime = builder.startDateTime;
+        this.endDateTime = builder.endDateTime;
     }
 
-    public static Builder create() {
-      return new Builder();
+
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public Builder withDescription(String description) {
-      this.description = description;
-      return this;
-    }
+    public final static class Builder {
+        private String description;
+        private String name;
+        private String location;
+        private int distance;
+        private Period expectedDuration;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
 
-    public Builder withName(String name) {
-      this.name = name;
-      return this;
-    }
+        private Builder() {
+        }
 
-    public Builder withLocation(String location) {
-      this.location = location;
-      return this;
-    }
+        public static Builder create() {
+            return new Builder();
+        }
 
-    public Builder withDistance(int distance) {
-      this.distance = distance;
-      return this;
-    }
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
 
-    public Builder withExpectedDuration(Period expectedDuration) {
-      this.expectedDuration = expectedDuration;
-      return this;
-    }
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
 
-    public Builder withStartDateTime(Date startDateTime) {
-      this.startDateTime = LocalDateTime.ofInstant(startDateTime.toInstant(), ZoneId.systemDefault());
-      return this;
-    }
+        public Builder withLocation(String location) {
+            this.location = location;
+            return this;
+        }
 
-    public Builder withStartDateTime(LocalDateTime startDateTime) {
-      this.startDateTime = startDateTime;
-      return this;
-    }
+        public Builder withDistance(int distance) {
+            this.distance = distance;
+            return this;
+        }
 
-    public Builder withEndDateTime(LocalDateTime endDateTime) {
-      this.endDateTime = endDateTime;
-      return this;
-    }
+        public Builder withExpectedDuration(Period expectedDuration) {
+            this.expectedDuration = expectedDuration;
+            return this;
+        }
 
-    public CreateEventCommand build() {
-      validate();
-      return new CreateEventCommand(this);
-    }
+        public Builder withStartDateTime(Date startDateTime) {
+            this.startDateTime = LocalDateTime.ofInstant(startDateTime.toInstant(), ZoneId.systemDefault());
+            return this;
+        }
 
-    private void validate() {
-      Preconditions.checkNotNull(name, "Name not specified.");
-      Preconditions.checkNotNull(location, "End location not specified.");
-      Preconditions.checkNotNull(startDateTime, "Start data not specified.");
+        public Builder withStartDateTime(LocalDateTime startDateTime) {
+            this.startDateTime = startDateTime;
+            return this;
+        }
+
+        public Builder withEndDateTime(LocalDateTime endDateTime) {
+            this.endDateTime = endDateTime;
+            return this;
+        }
+
+        public CreateEventCommand build() {
+            validate();
+            return new CreateEventCommand(this);
+        }
+
+        private void validate() {
+            Preconditions.checkNotNull(name, "Name not specified.");
+            Preconditions.checkNotNull(location, "End location not specified.");
+            Preconditions.checkNotNull(startDateTime, "Start data not specified.");
+        }
     }
-  }
 }

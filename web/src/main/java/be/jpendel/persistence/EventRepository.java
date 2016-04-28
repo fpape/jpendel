@@ -13,12 +13,12 @@ public class EventRepository implements be.jpendel.domain.event.EventRepository 
     private EventMongoRepository eventMongoRepository;
 
     @Override
-    public void save(Event event) {
+    public void add(Event event) {
         eventMongoRepository.save(event);
     }
 
     @Override
-    public Collection<Event> findAll() {
+    public Collection<Event> getAll() {
         return eventMongoRepository.findAll();
     }
 }
