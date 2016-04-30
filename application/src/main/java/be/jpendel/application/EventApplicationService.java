@@ -4,7 +4,6 @@ import be.jpendel.domain.event.Event;
 import be.jpendel.domain.event.EventRepository;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class EventApplicationService {
 
@@ -15,10 +14,15 @@ public class EventApplicationService {
     }
 
     public void create(CreateEventCommand createEventCommand) {
-        eventRepository.save(new Event(createEventCommand.getName(), createEventCommand.getStartDateTime(), createEventCommand.getLocation()));
+        eventRepository.add(createEvent(createEventCommand));
     }
 
     public Collection<Event> overview() {
-        return Collections.unmodifiableCollection(eventRepository.findAll());
+        return eventRepository.getAll();
+    }
+
+    //TODO move this to factory
+    private Event createEvent(CreateEventCommand createEventCommand) {
+        return new Event(createEventCommand.name, createEventCommand.startDateTime, createEventCommand.location);
     }
 }

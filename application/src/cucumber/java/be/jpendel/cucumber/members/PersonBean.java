@@ -1,6 +1,6 @@
 package be.jpendel.cucumber.members;
 
-public class PersonDTO {
+public class PersonBean {
     private String firstName;
     private String lastName;
     private String birthDate;

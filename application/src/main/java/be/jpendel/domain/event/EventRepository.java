@@ -3,7 +3,7 @@ package be.jpendel.domain.event;
 import java.util.Collection;
 
 public interface EventRepository {
-    void save(Event event);
+    void add(Event event);
 
-    Collection<Event> findAll();
+    Collection<Event> getAll();
 }

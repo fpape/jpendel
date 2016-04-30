@@ -24,7 +24,7 @@ Feature: Assign roles to an event
       | wiske         | passenger |
       | 10-8-2016     | Lokeren   |
       | 10-12-2016    | Brugge    |
-    Then the event "<eventUuid>" contains the person "<personUuid>" with the role <"role">
+    Then the event "<eventUuid>" has the roles assigned
       | personUuid    | role      |
       | tante sidonia | driver    |
       | suske         | passenger |
