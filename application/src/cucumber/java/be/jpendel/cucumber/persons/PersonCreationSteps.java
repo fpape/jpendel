@@ -1,8 +1,11 @@
-package be.jpendel.cucumber.members;
+package be.jpendel.cucumber.persons;
 
 import be.jpendel.application.CreatePersonCommand;
 import be.jpendel.application.PersonApplicationService;
 import be.jpendel.application.PersonDTO;
+import cucumber.api.DataTable;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -20,6 +23,12 @@ public class PersonCreationSteps {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final PersonApplicationService personApplicationService = new PersonApplicationService();
+
+    @Given("^no persons are present in the system$")
+    public void no_persons_are_present_in_the_system() throws Throwable {
+        final List<PersonDTO> all = personApplicationService.getAll();
+        assertThat(all).isEmpty();
+    }
 
     @When("^(?:a|the) (?:person|persons) (?:is|are) created$")
     public void createPersons(List<PersonBean> personBeen) throws Throwable {
@@ -42,6 +51,7 @@ public class PersonCreationSteps {
                 .withPhone(personBean.getPhone())
                 .build();
     }
+
 
     private LocalDate toDate(Date dateToConvert) {
         final Instant instant = dateToConvert.toInstant();

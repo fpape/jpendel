@@ -1,6 +1,7 @@
 Feature: Create a person
 
   Scenario: Create a person
+    Given no persons are present in the system
     When a person is created
       | FirstName | LastName | BirthDate  | Phone     |
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
@@ -9,6 +10,7 @@ Feature: Create a person
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
 
   Scenario: Create same person twice
+    Given no persons are present in the system
     When the persons are created
       | FirstName | LastName | BirthDate  | Phone     |
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
@@ -19,6 +21,7 @@ Feature: Create a person
       | Guido     | Dechamps | 01-01-1995 | 059279078 |
 
   Scenario: Create multiple persons
+    Given no persons are present in the system
     When the persons are created
       | FirstName | LastName | BirthDate  | Phone     |
       | Guido     | Dechamps | 01-01-1995 | 059279078 |

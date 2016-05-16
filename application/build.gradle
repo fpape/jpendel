@@ -1,5 +1,5 @@
 plugins {
-  id "com.github.samueltbrown.cucumber" version "0.9"
+    id "com.github.samueltbrown.cucumber" version "0.9"
 }
 group 'JPendel'
 version '1.0-SNAPSHOT'
@@ -7,41 +7,47 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 cucumber {
-  formats = [
-      'pretty',
-      'json:build/cucumber.json',
-      'junit:build/cucumber.xml',
-      'html:build/reports/cucumber'
-  ]
-  glueDirs = [
-      'src/cucumber/java'
-  ]
-  featureDirs = [
-      'src/cucumber/resources'
-  ]
-  monochrome = false
-  strict = false
-  dryRun = true
-  ignoreFailures = false
+    formats = [
+            'pretty',
+            'json:build/cucumber.json',
+            'junit:build/cucumber.xml',
+            'html:build/reports/cucumber'
+    ]
+    glueDirs = [
+            'src/cucumber/java'
+    ]
+    featureDirs = [
+            'src/cucumber/resources'
+    ]
+    monochrome = false
+    strict = false
+    dryRun = false
+    ignoreFailures = false
 
-  jvmOptions {
-    maxHeapSize = '512m'
-    environment 'ENV', 'staging'
-  }
+    jvmOptions {
+        maxHeapSize = '512m'
+        environment 'ENV', 'staging'
+    }
 }
 
 dependencies {
-  compile('com.google.guava:guava:19.0')
-  //compile 'org.immutables:value:2.1.16'
+    compile('com.google.guava:guava:19.0')
+    //compile 'org.immutables:value:2.1.16'
 
-  testCompile('junit:junit:4.11')
-  testCompile('org.assertj:assertj-core:3.4.1')
-  testCompile('info.cukes:cucumber-java:1.2.4')
-  cucumberRuntime 'info.cukes:cucumber-java:1.2.4'
+    testCompile('junit:junit:4.11')
+    testCompile('org.assertj:assertj-core:3.4.1')
+    testCompile('info.cukes:cucumber-java:1.2.4')
+    cucumberRuntime 'info.cukes:cucumber-java:1.2.4'
 }
-
+/**
+ * The check task is a lifecycle task provided by the Java plugin that depends on any of the verification tasks like test.
+ * This task is convenient if you want to automatically execute the whole chain of test tasks.
+ */
 tasks.check.dependsOn tasks.cucumber
+
+//test.testLogging.showStandardStreams = true
+//test.systemProperties = System.getProperties().getProperties()
