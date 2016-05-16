@@ -3,8 +3,7 @@ package be.jpendel.cucumber.persons;
 import be.jpendel.application.CreatePersonCommand;
 import be.jpendel.application.PersonApplicationService;
 import be.jpendel.application.PersonDTO;
-import cucumber.api.DataTable;
-import cucumber.api.PendingException;
+import com.google.common.collect.ImmutableSetMultimap;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,9 +12,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
+import static be.jpendel.cucumber.GuavaCollectors.toImmutableSetMap;
 import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +44,50 @@ public class PersonCreationSteps {
     public void the_person_is_listed_in_the_person_overview(List<PersonBean> beanList) throws Throwable {
         final List<PersonDTO> all = personApplicationService.getAll();
         assertThat(all).hasSameSizeAs(beanList);
+        final ImmutableSetMultimap<String, PersonDTO> mappedByName = groupDTOByName(all);
+        final ImmutableSetMultimap<String, PersonBean> expectedPersonsGroupedByName = groupBeanByName(beanList);
+        expectedPersonsGroupedByName.asMap().entrySet().stream()
+                .forEach(x -> isPresent(x, mappedByName));
     }
+
+    private ImmutableSetMultimap<String, PersonBean> groupBeanByName(List<PersonBean> beanList) {
+        return beanList.stream()
+                .collect(toImmutableSetMap(PersonFunctions::getUniqueName, Function.identity()));
+    }
+
+    private ImmutableSetMultimap<String, PersonDTO> groupDTOByName(List<PersonDTO> all) {
+        return all.stream()
+                .collect(toImmutableSetMap(PersonFunctions::getUniqueName, Function.identity()));
+    }
+
+    private void isPresent(Map.Entry<String, Collection<PersonBean>> samePersons, ImmutableSetMultimap<String, PersonDTO> mappedByName) {
+        final String uniqueName = samePersons.getKey();
+        assertThat(mappedByName.containsKey(uniqueName)).isTrue();
+
+        final Collection<PersonDTO> personDTOs = mappedByName.get(uniqueName);
+        final Collection<PersonBean> personBeans = samePersons.getValue();
+
+        checkPersonDataIsEqual(personDTOs, personBeans);
+
+    }
+
+    private void checkPersonDataIsEqual(Collection<PersonDTO> personDTOs, Collection<PersonBean> personBeans) {
+        assertThat(personDTOs).hasSameSizeAs(personBeans);
+        personBeans.stream().forEach(x -> isEqualToAll(x, personDTOs));
+    }
+
+    private void isEqualToAll(PersonBean x, Collection<PersonDTO> personDTOs) {
+        personDTOs.stream().forEach(y -> isEqual(x, y));
+    }
+
+    private void isEqual(PersonBean x, PersonDTO personDTO) {
+        assertThat(x.getFirstName()).isEqualTo(personDTO.firstName);
+        assertThat(x.getLastName()).isEqualTo(personDTO.lastName);
+        assertThat(toDate(x.getBirthDate())).isEqualTo(personDTO.birthDate);
+        assertThat(x.getPhone()).isEqualTo(personDTO.phone);
+        assertThat(personDTO.uuid).isNotNull();
+    }
+
 
     private CreatePersonCommand map(PersonBean personBean) {
         return CreatePersonCommand.newBuilder()

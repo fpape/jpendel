@@ -48,6 +48,3 @@ dependencies {
  * This task is convenient if you want to automatically execute the whole chain of test tasks.
  */
 tasks.check.dependsOn tasks.cucumber
-
-//test.testLogging.showStandardStreams = true
-//test.systemProperties = System.getProperties().getProperties()
