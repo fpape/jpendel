@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import static be.jpendel.cucumber.GuavaCollectors.toImmutableSetMap;
+import static be.jpendel.application.GuavaCollectors.toImmutableSetMap;
 import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 

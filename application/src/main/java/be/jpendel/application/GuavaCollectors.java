@@ -1,4 +1,4 @@
-package be.jpendel.cucumber;
+package be.jpendel.application;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
