@@ -3,6 +3,7 @@ package be.jpendel.cucumber.persons;
 import be.jpendel.application.CreatePersonCommand;
 import be.jpendel.application.PersonApplicationService;
 import be.jpendel.application.PersonDTO;
+import be.jpendel.domain.person.PersonFactory;
 import com.google.common.collect.ImmutableSetMultimap;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonCreationSteps {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private final PersonApplicationService personApplicationService = new PersonApplicationService();
+    private final PersonApplicationService personApplicationService = new PersonApplicationService(new PersonFactory());
 
     @Given("^no persons are present in the system$")
     public void no_persons_are_present_in_the_system() throws Throwable {

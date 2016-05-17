@@ -14,7 +14,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PersonApplicationService {
     //TODO refactor to repository
     private ImmutableMap.Builder<UUID, Person> persons = ImmutableMap.builder();
-    private PersonFactory personFactory = new PersonFactory();
+    private final PersonFactory personFactory;
+
+    public PersonApplicationService(PersonFactory personFactory) {
+        this.personFactory = personFactory;
+    }
 
     public void createPerson(CreatePersonCommand command) {
         checkNotNull(command);
