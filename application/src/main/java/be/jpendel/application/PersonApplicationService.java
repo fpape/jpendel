@@ -7,14 +7,14 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import static be.jpendel.application.PersonMapper.map;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PersonApplicationService {
+    private final PersonFactory personFactory;
     //TODO refactor to repository
     private ImmutableMap.Builder<UUID, Person> persons = ImmutableMap.builder();
-    private final PersonFactory personFactory;
 
     public PersonApplicationService(PersonFactory personFactory) {
         this.personFactory = personFactory;
@@ -32,17 +32,4 @@ public class PersonApplicationService {
     }
 
 
-    private List<PersonDTO> map(ImmutableCollection<Person> persons) {
-        return persons.stream().map(this::map).collect(Collectors.toList());
-    }
-
-    private PersonDTO map(Person person) {
-        return PersonDTO.newBuilder()
-                .withUuid(person.getId())
-                .withFirstName(person.getFirstName())
-                .withLastName(person.getLastName())
-                .withBirthDate(person.getBirthDate())
-                .withPhone(person.getPhone())
-                .build();
-    }
 }
