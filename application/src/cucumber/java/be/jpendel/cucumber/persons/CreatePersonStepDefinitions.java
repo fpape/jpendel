@@ -23,7 +23,7 @@ import static be.jpendel.application.GuavaCollectors.toImmutableSetMap;
 import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PersonCreationSteps {
+public class CreatePersonStepDefinitions {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final PersonApplicationService personApplicationService = new PersonApplicationService(new PersonFactory());
