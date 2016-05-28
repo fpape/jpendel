@@ -3,8 +3,8 @@ Feature: Assign roles to an event
   Scenario Outline: Assign a role to an event
     Given an event with uuid "<eventUuid>"
     And a person with uuid "<personUuid>"
-    When the user assigns the role <"role"> in the event "<eventUuid>" to the person "<personUuid>"
-    Then the event "<eventUuid>" contains the person "<personUuid>" with the role <"role">
+    When the user assigns the role "<role>" in the event "<eventUuid>" to the person "<personUuid>"
+    Then the event "<eventUuid>" contains the person "<personUuid>" with the role "<role>"
 
     Examples:
       | eventUuid | personUuid    | role      |
