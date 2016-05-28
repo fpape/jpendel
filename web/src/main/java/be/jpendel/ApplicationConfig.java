@@ -5,6 +5,7 @@ import be.jpendel.application.PersonApplicationService;
 import be.jpendel.domain.event.EventFactory;
 import be.jpendel.domain.event.EventRepository;
 import be.jpendel.domain.person.PersonFactory;
+import be.jpendel.domain.person.PersonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,8 +18,8 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PersonApplicationService personApplicationService() {
-        return new PersonApplicationService(personFactory());
+    public PersonApplicationService personApplicationService(PersonRepository personRepository) {
+        return new PersonApplicationService(personFactory(), personRepository);
     }
 
     @Bean
