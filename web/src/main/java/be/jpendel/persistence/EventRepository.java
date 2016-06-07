@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public class EventRepository implements be.jpendel.domain.event.EventRepository {
+class EventRepository implements be.jpendel.domain.event.EventRepository {
 
     @Autowired
     private EventMongoRepository eventMongoRepository;

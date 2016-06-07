@@ -1,4 +1,7 @@
-package be.jpendel.domain.member;
+package be.jpendel.application;
+
+import be.jpendel.domain.member.Member;
+import be.jpendel.domain.member.MemberRepository;
 
 public class SignupUC {
 

@@ -21,7 +21,16 @@ public class PersonDTO {
         phone = builder.phone;
     }
 
-
+    @Override
+    public String toString() {
+        return "PersonDTO{" +
+                "uuid=" + uuid +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 
     public static Builder newBuilder() {
         return new Builder();

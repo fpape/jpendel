@@ -1,4 +1,4 @@
-package be.jpendel.cucumber.members;
+package be.jpendel.cucumber.persons;
 
 public class PersonBean {
     private String firstName;

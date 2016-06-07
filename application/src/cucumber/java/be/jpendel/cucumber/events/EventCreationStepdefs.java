@@ -3,6 +3,7 @@ package be.jpendel.cucumber.events;
 import be.jpendel.application.CreateEventCommand;
 import be.jpendel.application.EventApplicationService;
 import be.jpendel.domain.event.Event;
+import be.jpendel.domain.event.EventFactory;
 import be.jpendel.domain.event.InMemEventRepository;
 import cucumber.api.Format;
 import cucumber.api.java.en.And;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventCreationStepdefs {
 
-    private final EventApplicationService eventApplicationService = new EventApplicationService(new InMemEventRepository());
+    private final EventApplicationService eventApplicationService = new EventApplicationService(new InMemEventRepository(), new EventFactory());
 
     @When("^An event (?:is|was) created with name \"([^\"]*)\"$")
     public void anEventIsCreatedWithName(String eventName) throws Throwable {
