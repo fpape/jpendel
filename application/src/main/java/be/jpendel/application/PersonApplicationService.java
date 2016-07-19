@@ -3,11 +3,8 @@ package be.jpendel.application;
 import be.jpendel.domain.person.Person;
 import be.jpendel.domain.person.PersonFactory;
 import be.jpendel.domain.person.PersonRepository;
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableMap;
 
 import java.util.List;
-import java.util.UUID;
 
 import static be.jpendel.application.PersonMapper.map;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -15,7 +12,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PersonApplicationService {
     private final PersonFactory personFactory;
     private final PersonRepository personRepository;
-
 
 
     public PersonApplicationService(PersonFactory personFactory, PersonRepository personRepository) {

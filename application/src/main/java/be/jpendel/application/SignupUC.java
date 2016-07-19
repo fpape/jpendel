@@ -11,6 +11,8 @@ public class SignupUC {
         this.memberRepository = memberRepository;
     }
 
+    //TODO brrrr 'new Member' ipv een builder
+    // Volgens mijn begrip mag de applicatie laag niet een Member rechtreeks aanmaken ..waar is CreateMemberCommand ?
     public void signup(Request request) {
         memberRepository.save(new Member(request.getName(), request.getEmail()));
     }

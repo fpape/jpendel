@@ -6,7 +6,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PersonMapper {
+/* TODO : mark: PersonMapper en PersonDTO moeten volgens mij in de domain layer
+*/
+class PersonMapper {
 
     private PersonMapper() {
     }

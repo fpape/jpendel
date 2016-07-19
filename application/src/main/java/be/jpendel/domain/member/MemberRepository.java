@@ -1,7 +1,5 @@
 package be.jpendel.domain.member;
 
-import be.jpendel.domain.member.Member;
-
 import java.util.Optional;
 
 public interface MemberRepository {
