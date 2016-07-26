@@ -36,6 +36,7 @@ cucumber {
 
 dependencies {
     compile('com.google.guava:guava:19.0')
+    compile project(':application-boundary')
     //compile 'org.immutables:value:2.1.16'
 
     testCompile('junit:junit:4.11')

@@ -4,7 +4,7 @@ public class Member {
     private String name;
     private String email;
 
-    public Member(String name, String email) {
+    private Member(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -15,5 +15,9 @@ public class Member {
 
     public String getName() {
         return name;
+    }
+
+    public static Member withNameAndEmail(String name,String email){
+        return new Member(name,email);
     }
 }
