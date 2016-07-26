@@ -2,7 +2,7 @@ package be.jpendel.rest;
 
 import be.jpendel.application.CreateEventCommand;
 import be.jpendel.application.EventApplicationService;
-import be.jpendel.domain.event.Event;
+import be.jpendel.application.EventDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class EventController {
     private EventApplicationService eventApplicationService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/event")
-    public Collection<Event> overview() {
+    public Collection<EventDTO> overview() {
         return eventApplicationService.overview();
     }
 

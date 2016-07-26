@@ -6,6 +6,7 @@ import java.util.UUID;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
+//TODO All thee setters? Should this be modifiable
 public class Person {
     private final UUID uuid;
     private String firstName;

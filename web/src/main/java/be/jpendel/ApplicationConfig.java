@@ -1,8 +1,8 @@
 package be.jpendel;
 
 import be.jpendel.application.EventApplicationService;
+import be.jpendel.application.EventApplicationServiceImpl;
 import be.jpendel.application.PersonApplicationService;
-import be.jpendel.domain.event.EventFactory;
 import be.jpendel.domain.event.EventRepository;
 import be.jpendel.domain.person.PersonFactory;
 import be.jpendel.domain.person.PersonRepository;
@@ -14,17 +14,12 @@ public class ApplicationConfig {
 
     @Bean
     public EventApplicationService eventApplicationService(EventRepository eventRepository) {
-        return new EventApplicationService(eventRepository, eventFactory());
+        return new EventApplicationServiceImpl(eventRepository);
     }
 
     @Bean
     public PersonApplicationService personApplicationService(PersonRepository personRepository) {
         return new PersonApplicationService(personFactory(), personRepository);
-    }
-
-    @Bean
-    public EventFactory eventFactory() {
-        return new EventFactory();
     }
 
     @Bean

@@ -13,6 +13,18 @@ public class EventDTO {
         location = builder.location;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     public static Builder newBuilder() {
         return new Builder();
     }

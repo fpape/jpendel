@@ -2,8 +2,8 @@ package be.jpendel.cucumber.events;
 
 import be.jpendel.application.CreateEventCommand;
 import be.jpendel.application.EventApplicationService;
-import be.jpendel.domain.event.Event;
-import be.jpendel.domain.event.EventFactory;
+import be.jpendel.application.EventApplicationServiceImpl;
+import be.jpendel.application.EventDTO;
 import be.jpendel.domain.event.InMemEventRepository;
 import cucumber.api.Format;
 import cucumber.api.java.en.And;
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventCreationStepdefs {
 
-    private final EventApplicationService eventApplicationService = new EventApplicationService(new InMemEventRepository(), new EventFactory());
+    private final EventApplicationService eventApplicationService = new EventApplicationServiceImpl(new InMemEventRepository());
 
     @When("^An event (?:is|was) created with name \"([^\"]*)\"$")
     public void anEventIsCreatedWithName(String eventName) throws Throwable {
@@ -46,7 +46,7 @@ public class EventCreationStepdefs {
 
     @Then("^The event with name \"([^\"]*)\" is listed (\\d+) times in the event overview$")
     public void timesListedInOverview(String eventName, long eventOccurrences) throws Throwable {
-        Collection<Event> overview = eventApplicationService.overview();
+        Collection<EventDTO> overview = eventApplicationService.overview();
 
         assertThat(countEventsWithName(eventName, overview)).isEqualTo(eventOccurrences);
     }
@@ -61,15 +61,15 @@ public class EventCreationStepdefs {
 
     @Then("^Below events are listed in the event overview$")
     public void belowEventsAreListedInTheEventOverview(List<String> eventNames) throws Throwable {
-        Collection<Event> overview = eventApplicationService.overview();
+        Collection<EventDTO> overview = eventApplicationService.overview();
 
         assertThat(overview).hasSize(eventNames.size());
-        assertThat(overview).extracting(Event::getName).containsAll(eventNames);
+        assertThat(overview).extracting(EventDTO::getName).containsAll(eventNames);
     }
 
     @And("^the event details match \"([^\"]*)\", \"([^\"]*)\"$")
     public void theEventDetailsMatch(@Format("dd-MM-yyyy") Date date, String location) throws Throwable {
-        Collection<Event> overview = eventApplicationService.overview();
+        Collection<EventDTO> overview = eventApplicationService.overview();
 
         assertEventDetails(getFirstEvent(overview), date, location);
     }
@@ -82,7 +82,7 @@ public class EventCreationStepdefs {
                 .withLocation("Brussel"));
     }
 
-    private void assertEventDetails(Event event, Date date, String location) {
+    private void assertEventDetails(EventDTO event, Date date, String location) {
         assertThat(event.getStartDateTime()).isEqualTo(map(date));
         assertThat(event.getLocation()).isEqualTo(location);
     }
@@ -93,9 +93,9 @@ public class EventCreationStepdefs {
         return event;
     }
 
-    private long countEventsWithName(String eventName, Collection<Event> events) {
+    private long countEventsWithName(String eventName, Collection<EventDTO> events) {
         return events.stream()
-                .map(Event::getName)
+                .map(EventDTO::getName)
                 .filter(eventName::equals)
                 .count();
     }
@@ -104,7 +104,7 @@ public class EventCreationStepdefs {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
-    private Event getFirstEvent(Collection<Event> overview) {
+    private EventDTO getFirstEvent(Collection<EventDTO> overview) {
         return overview.stream().findFirst().get();
     }
 
