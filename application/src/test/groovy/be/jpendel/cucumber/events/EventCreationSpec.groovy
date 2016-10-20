@@ -4,7 +4,7 @@ import be.jpendel.application.CreateEventCommand
 import be.jpendel.application.EventApplicationServiceImpl
 import be.jpendel.domain.event.Event
 import be.jpendel.domain.event.EventRepository
-import org.junit.Ignore
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Subject
 
