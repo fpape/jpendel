@@ -1,3 +1,15 @@
-include 'application', 'web'
+rootProject.name = 'jpendel'
+
+include 'web'
+include 'application'
 include 'application-boundary'
+
+rootProject.children.each { project ->
+    def projectName = project.name
+
+    project.buildFileName = projectName + '.gradle'
+    project.projectDir = new File(settingsDir, projectName)
+
+    assert project.projectDir.isDirectory()
+}
 
