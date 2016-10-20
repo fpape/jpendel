@@ -6,7 +6,7 @@ import be.jpendel.domain.event.EventRepository;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class EventApplicationServiceImpl implements EventApplicationService {
+public class EventApplicationServiceImpl implements EventApplicationService, EventQueryRepository {
 
     private final EventRepository eventRepository;
 
@@ -21,12 +21,7 @@ public class EventApplicationServiceImpl implements EventApplicationService {
 
     @Override
     public Collection<EventDTO> overview() {
-        return eventRepository.getAll().stream().map(e -> EventDTO
-                .newBuilder()
-                .withLocation(e.getLocation())
-                .withName(e.getName())
-                .withStartDateTime(e.getStartDateTime()).build()
-        ).collect(Collectors.toList());
+        return eventRepository.getAll().stream().map(Event.asEventDTO()).collect(Collectors.toList());
     }
 
     private Event createEvent(CreateEventCommand createEventCommand) {

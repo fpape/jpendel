@@ -1,7 +1,10 @@
 package be.jpendel.domain.event;
 
+import be.jpendel.application.EventDTO;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class Event {
     //The UUID is the business UUID. NOT a hibernate persistence db id
@@ -61,5 +64,13 @@ public class Event {
         public Event build() {
             return new Event(this);
         }
+    }
+
+    public static Function<Event, EventDTO> asEventDTO() {
+        return evt ->  EventDTO.newBuilder()
+                .withLocation(evt.location)
+                .withName(evt.name)
+                .withStartDateTime(evt.startDateTime)
+                .build();
     }
 }

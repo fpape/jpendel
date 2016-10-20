@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventCreationStepdefs {
 
-    private final EventApplicationService eventApplicationService = new EventApplicationServiceImpl(new InMemEventRepository());
+    private final EventApplicationServiceImpl eventApplicationService = new EventApplicationServiceImpl(new InMemEventRepository());
 
     @When("^An event (?:is|was) created with name \"([^\"]*)\"$")
     public void anEventIsCreatedWithName(String eventName) throws Throwable {
