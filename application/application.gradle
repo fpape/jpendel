@@ -1,7 +1,7 @@
 /********Plugins **************/
 plugins {
     /**
-     * Plugin that allows to start cucumbr acceptance tests directly from gradle.
+     * Plugin that allows to start cucumber acceptance tests directly from gradle.
      * This plugin is no longer actively maintained.
      * But it serves it's purposes for now.
      */
@@ -21,7 +21,6 @@ repositories {
 dependencies {
     compile('com.google.guava:guava:19.0')
     compile project(':application-boundary')
-    //compile 'org.immutables:value:2.1.16'
 
     testCompile('junit:junit:4.11')
     testCompile('org.assertj:assertj-core:3.4.1')

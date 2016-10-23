@@ -21,7 +21,7 @@ jar {
 
 dependencies {
     compile project(':application')
-
+    compile project(':application-boundary')
     // web shizzle
     compile('de.infinit:spring-boot-autoconfigure-wro4j:0.0.6')
     compile('org.webjars:jquery:2.2.3')

@@ -1,39 +1,32 @@
 package be.jpendel.application;
 
-import be.jpendel.domain.event.Event;
+import be.jpendel.actions.event.CreateEvent;
+import be.jpendel.actions.event.OverviewOfEvents;
 import be.jpendel.domain.event.EventRepository;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class EventApplicationServiceImpl implements EventApplicationService {
 
-    private final EventRepository eventRepository;
+
+    private final CreateEvent createEvent;
+    private final OverviewOfEvents overviewOfEvents;
 
     public EventApplicationServiceImpl(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+        this.createEvent = CreateEvent.with(eventRepository);
+        this.overviewOfEvents = OverviewOfEvents.with(eventRepository);
+
     }
 
     @Override
     public void create(CreateEventCommand createEventCommand) {
-        eventRepository.add(createEvent(createEventCommand));
+        createEvent.create(createEventCommand);
     }
 
     @Override
     public Collection<EventDTO> overview() {
-        return eventRepository.getAll().stream().map(e -> EventDTO
-                .newBuilder()
-                .withLocation(e.getLocation())
-                .withName(e.getName())
-                .withStartDateTime(e.getStartDateTime()).build()
-        ).collect(Collectors.toList());
+        return overviewOfEvents.overview();
     }
 
-    private Event createEvent(CreateEventCommand createEventCommand) {
-        return Event.newBuilder()
-                .withName(createEventCommand.name)
-                .withStartDateTime(createEventCommand.startDateTime)
-                .withLocation(createEventCommand.location)
-                .build();
-    }
+
 }
